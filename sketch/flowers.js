@@ -3,7 +3,7 @@ new p5();
 let backgroundColor;
 
 let flowers = [];
-let numberOfFlowers = 1;
+let numberOfFlowers = 100;
 
 let maxWindForce = 10;
 let windForce = createVector(10, 0);

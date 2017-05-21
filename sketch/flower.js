@@ -3,13 +3,16 @@ class Flower {
 		this.basePos = createVector(
 			Math.random() * width, 
 			height);
-		this.minHeight = 50;
-		this.maxHeight = 100;
-		this.stemLength = Math.random() * this.maxHeight + this.minHeight;
+		this.averageHeight = 70;
+		this.heightStandardDev = 20;
+		this.stemLength = randomGaussian(this.averageHeight, this.heightStandardDev);
+		// this.stemLength = 70;
 
 		this.color = color(50);
 		this.centerColor = color(230);
-		this.stemWidth = 1;
+		this.stemWidth = randomGaussian(3, 2);
+		this.stemWidth = max(0.2, this.stemWidth); 
+		
 
 		this.noOfPetals = 6;
 		this.petalSize = this.stemLength * 0.1;
@@ -22,7 +25,7 @@ class Flower {
 
 		this.maxVel = 5;
 
-		this.standupDesire = 10;
+		this.standupDesire = 1000 * this.stemWidth * (1/this.stemLength);
 
 		this.up = createVector(0, -1);
 	}
@@ -50,16 +53,50 @@ class Flower {
 	}
 
 	display() {
-		stroke(this.color);
-		strokeWeight(this.stemWidth);
-
 		push();
 		translate(this.basePos.x, this.basePos.y);
-		line(0, 0, this.getRelativeHeadPos().x, this.getRelativeHeadPos().y);
-
+		
+		this.drawStem();
 		this.drawPetals(this.getRelativeHeadPos());
 		this.drawCenter(this.getRelativeHeadPos());
 		pop();
+	}
+
+	drawStem() {
+		stroke(this.color);
+		strokeWeight(this.stemWidth);
+		noFill();
+		
+		// line(0, 0, this.getRelativeHeadPos().x, this.getRelativeHeadPos().y);
+		
+		// let test = this.getRelativeHeadPos().copy();
+
+		let startControl = createVector(0, 0);
+		let start = {x: 0, y:0};
+		let end = this.getRelativeHeadPos();
+		let endControl = this.getRelativeHeadPos().copy();
+		
+		let endOffset = createVector(
+			0, 
+			this.stemLength
+			*2
+			);
+		endControl.add(endOffset);
+
+		let startOffset = createVector(
+			0, 
+			this.stemLength * 
+			// (1/this.stemWidth) * 
+			3
+			);
+		startControl.add(startOffset);
+
+		curve(
+			startControl.x, startControl.y, 
+			start.x, start.y, 
+			end.x, end.y, 
+			endControl.x, endControl.y
+			);
 	}
 
 	drawPetals(headPos) {
