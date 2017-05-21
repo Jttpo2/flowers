@@ -5,6 +5,8 @@ let backgroundColor;
 let flowers = [];
 let numberOfFlowers = 10;
 
+let windForce = createVector(7, 0);
+
 function setup() {
 	let canvas = createCanvas(
 		window.innerWidth,
@@ -22,6 +24,7 @@ function setup() {
 function draw() {
 	background(backgroundColor);
 	
+	applyWind();
 	drawFlowers();
 }
 
@@ -37,3 +40,8 @@ function drawFlowers() {
 	});
 }
 
+function applyWind() {
+	flowers.forEach(function(flower) {
+		flower.applyForce(p5.Vector.mult(windForce, Math.random()));
+	});
+}

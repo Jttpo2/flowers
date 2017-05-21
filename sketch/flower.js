@@ -13,6 +13,13 @@ class Flower {
 		this.noOfPetals = 6;
 		this.petalSize = this.stemLength * 0.1;
 		this.petalToCenterDistance = this.petalSize;
+
+		this.mass = this.stemLength * 0.1;
+		this.relativeHeadPos = createVector(0, -this.stemLength); 
+		this.vel = createVector(0, 0);
+		this.acc = createVector(0, 0);
+
+		this.maxVel = 5;
 	}
 
 	run() {
@@ -22,14 +29,50 @@ class Flower {
 
 	update() {
 
+		this.workTowardsStandingUpStraight();
+
+		this.vel.add(this.acc);
+		this.vel.limit(this.maxVel);
+
+		let desiredHeadPos = p5.Vector.add(this.relativeHeadPos, this.vel);
+
+		desiredHeadPos.setMag(this.stemLength);
+		this.relativeHeadPos = desiredHeadPos;
+
+
+		// let zero = createVector(0, 0);
+		// let stemVector = p5.Vector.sub(desiredHeadPos, zero);
+		// stemVector.limit(this.stemLength);
+
+
+
+
+		// this.relativeHeadPos = p5.Vector.add(zero, stemVector);
+		// this.relativeHeadPos = stemVector;
+
+
+		// let stemVector = p5.Vector.sub(desiredHeadPos, this.basePos);
+		// stemVector.limit(this.stemLength);
+		// this.headPos = stemVector;
+		// this.headPos = 
+		// this.headPos.add(this.vel);
+		 
+
+		this.acc.mult(0);
+
+
 	}
 
 	display() {
 		stroke(this.color);
 		strokeWeight(this.stemWidth);
-		line(this.basePos.x, this.basePos.y, this.basePos.x, this.basePos.y - this.stemLength);
 
-		this.drawPetals(this.getHeadPos());
+		push();
+		translate(this.basePos.x, this.basePos.y);
+		line(0, 0, this.getRelativeHeadPos().x, this.getRelativeHeadPos().y);
+
+		this.drawPetals(this.getRelativeHeadPos());
+		pop();
 	}
 
 	drawPetals(headPos) {
@@ -53,7 +96,17 @@ class Flower {
 		ellipse(x, y, this.petalSize);
 	}
 
-	getHeadPos() {
-		return createVector(this.basePos.x, this.basePos.y - this.stemLength);
+	getRelativeHeadPos() {
+		return this.relativeHeadPos;	
+		// return createVector(this.basePos.x, this.basePos.y - this.stemLength);
+	}
+
+	applyForce(force) {
+		this.acc.add(p5.Vector.div(force, this.mass));
+	}
+
+	workTowardsStandingUpStraight() {
+
+		this.applyForce(createVector(0, -10));
 	}
 }	
