@@ -10,7 +10,7 @@ class Flower {
 
 		this.color = color(50);
 		this.centerColor = color(230);
-		this.stemWidth = randomGaussian(3, 2);
+		this.stemWidth = randomGaussian(2, 1.5);
 		this.stemWidth = max(0.2, this.stemWidth); 
 		
 
@@ -18,7 +18,7 @@ class Flower {
 		this.petalSize = this.stemLength * 0.1;
 		this.petalToCenterDistance = this.petalSize;
 
-		this.mass = this.stemLength * 0.1;
+		this.mass = this.stemLength * this.stemWidth * 0.1;
 		this.relativeHeadPos = createVector(0, -this.stemLength); 
 		this.vel = createVector(0, 0);
 		this.acc = createVector(0, 0);
@@ -78,8 +78,7 @@ class Flower {
 		
 		let endOffset = createVector(
 			0, 
-			this.stemLength
-			*2
+			this.stemLength * 0.1
 			);
 		endControl.add(endOffset);
 
