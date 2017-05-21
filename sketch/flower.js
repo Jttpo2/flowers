@@ -20,6 +20,8 @@ class Flower {
 		this.acc = createVector(0, 0);
 
 		this.maxVel = 5;
+
+		this.standupDesire = 10;
 	}
 
 	run() {
@@ -39,28 +41,7 @@ class Flower {
 		desiredHeadPos.setMag(this.stemLength);
 		this.relativeHeadPos = desiredHeadPos;
 
-
-		// let zero = createVector(0, 0);
-		// let stemVector = p5.Vector.sub(desiredHeadPos, zero);
-		// stemVector.limit(this.stemLength);
-
-
-
-
-		// this.relativeHeadPos = p5.Vector.add(zero, stemVector);
-		// this.relativeHeadPos = stemVector;
-
-
-		// let stemVector = p5.Vector.sub(desiredHeadPos, this.basePos);
-		// stemVector.limit(this.stemLength);
-		// this.headPos = stemVector;
-		// this.headPos = 
-		// this.headPos.add(this.vel);
-		 
-
 		this.acc.mult(0);
-
-
 	}
 
 	display() {
@@ -106,7 +87,6 @@ class Flower {
 	}
 
 	workTowardsStandingUpStraight() {
-
-		this.applyForce(createVector(0, -10));
+		this.applyForce(createVector(0, -this.standupDesire));
 	}
 }	
