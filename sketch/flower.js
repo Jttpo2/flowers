@@ -8,6 +8,7 @@ class Flower {
 		this.stemLength = Math.random() * this.maxHeight + this.minHeight;
 
 		this.color = color(50);
+		this.centerColor = color(230);
 		this.stemWidth = 1;
 
 		this.noOfPetals = 6;
@@ -22,6 +23,8 @@ class Flower {
 		this.maxVel = 5;
 
 		this.standupDesire = 10;
+
+		this.up = createVector(0, -1);
 	}
 
 	run() {
@@ -36,7 +39,9 @@ class Flower {
 		this.vel.add(this.acc);
 		this.vel.limit(this.maxVel);
 
-		let desiredHeadPos = p5.Vector.add(this.relativeHeadPos, this.vel);
+		let desiredHeadPos = p5.Vector.add(
+			this.relativeHeadPos, 
+			this.vel);
 
 		desiredHeadPos.setMag(this.stemLength);
 		this.relativeHeadPos = desiredHeadPos;
@@ -53,12 +58,15 @@ class Flower {
 		line(0, 0, this.getRelativeHeadPos().x, this.getRelativeHeadPos().y);
 
 		this.drawPetals(this.getRelativeHeadPos());
+		this.drawCenter(this.getRelativeHeadPos());
 		pop();
 	}
 
 	drawPetals(headPos) {
 		push();
 		translate(headPos.x, headPos.y);
+		let rotationAngle = p5.Vector.angleBetween(this.up, headPos);
+		rotate(rotationAngle);
 
 		for (let i=0; i<this.noOfPetals; i++) {
 			push();
@@ -73,13 +81,13 @@ class Flower {
 	drawPetal(x, y) {
 		ellipseMode(CENTER);
 		stroke(this.color);
+		fill(this.color);
 		strokeWeight(this.stemWidth);
 		ellipse(x, y, this.petalSize);
 	}
 
 	getRelativeHeadPos() {
 		return this.relativeHeadPos;	
-		// return createVector(this.basePos.x, this.basePos.y - this.stemLength);
 	}
 
 	applyForce(force) {
@@ -88,5 +96,16 @@ class Flower {
 
 	workTowardsStandingUpStraight() {
 		this.applyForce(createVector(0, -this.standupDesire));
+	}
+
+	drawCenter(pos) {
+		ellipseMode(CENTER);
+		noStroke();
+		fill(this.centerColor);
+		
+		push();
+		translate(pos.x, pos.y);
+		ellipse(0, 0, this.petalSize*0.8);
+		pop();
 	}
 }	
