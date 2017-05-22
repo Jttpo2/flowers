@@ -9,7 +9,7 @@ let maxWindForce = 10;
 let windForce = createVector(10, 0);
 
 let xOff = 0;
-let xIncrement = 1;
+let xIncrement = 0.001;
 
 let tulipImage1;
 let tulipImage2;
@@ -63,7 +63,7 @@ function applyWind() {
 				windForce, 
 				randomGaussian(
 					1, // Median
-					0.4 // Standard deviation
+					0.3 * windForce.x // Standard deviation, larger with more wind force - more 'shakes'
 					)));
 	});
 }
@@ -74,6 +74,6 @@ function initWind() {
 
 function updateWind() {
 	xOff += xIncrement;
-	windForce.x = noise(xOff) * maxWindForce;
-	// windForce.x = map(noise(xOff), 0, 1,  -maxWindForce, maxWindForce);
+	// windForce.x = noise(xOff) * maxWindForce;
+	windForce.x = map(noise(xOff), 0, 1,  -maxWindForce, maxWindForce);
 }

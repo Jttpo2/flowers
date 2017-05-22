@@ -123,7 +123,8 @@ class Flower {
 
 	drawHead(headPos) {
 		// let rotationAngle = p5.Vector.angleBetween(this.up, headPos);
-		let rotationAngle = p5.Vector.angleBetween(this.up, this.stem.endControl);
+		let rotationAngle = Helper.calcClockwiseAngleBetween(this.up,  this.stem.endControl);
+		// let rotationAngle = p5.Vector.angleBetween(this.up, this.stem.endControl);
 		
 		let scalar = 0.004;
 		let scaledWidth = this.tulipImage.width * this.stem.length * this.stem.width * scalar;
