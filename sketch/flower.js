@@ -6,13 +6,13 @@ class Flower {
 		this.averageHeight = 70;
 		this.heightStandardDev = 20;
 		this.stemLength = randomGaussian(this.averageHeight, this.heightStandardDev);
-		// this.stemLength = 70;
+		this.stemLength = 100;
 
 		this.color = color(50);
 		this.centerColor = color(230);
 		this.stemWidth = randomGaussian(2, 1.5);
 		this.stemWidth = max(0.2, this.stemWidth); 
-		
+		this.stemWidth = 1;
 
 		this.noOfPetals = 6;
 		this.petalSize = this.stemLength * 0.1;
@@ -57,8 +57,7 @@ class Flower {
 		translate(this.basePos.x, this.basePos.y);
 		
 		this.drawStem();
-		this.drawPetals(this.getRelativeHeadPos());
-		this.drawCenter(this.getRelativeHeadPos());
+		this.drawHead(this.getRelativeHeadPos());
 		pop();
 	}
 
@@ -96,6 +95,24 @@ class Flower {
 			end.x, end.y, 
 			endControl.x, endControl.y
 			);
+	}
+
+	drawHead(headPos) {
+		let rotationAngle = p5.Vector.angleBetween(this.up, headPos);
+		
+		let scaledWidth = tulipImage.width/10;
+		let scaledHeight = tulipImage.height/10;
+
+		push();
+		translate(headPos.x, headPos.y);
+		rotate(rotationAngle);
+		
+		imageMode(CENTER);
+		image(tulipImage, 0, 0, scaledWidth, scaledHeight);
+		
+		pop();
+		// this.drawPetals(headPos);
+		// this.drawCenter(headPos);
 	}
 
 	drawPetals(headPos) {

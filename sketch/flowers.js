@@ -3,7 +3,7 @@ new p5();
 let backgroundColor;
 
 let flowers = [];
-let numberOfFlowers = 100;
+let numberOfFlowers = 1;
 
 let maxWindForce = 10;
 let windForce = createVector(10, 0);
@@ -11,11 +11,19 @@ let windForce = createVector(10, 0);
 let xOff = 0;
 let xIncrement = 1;
 
+let tulipImage;
+
+function preload() {
+	tulipImage = loadImage('img/tulip1.png');
+}
+
 function setup() {
 	let canvas = createCanvas(
 		window.innerWidth,
 		window.innerHeight
 		);
+
+	
 
 	backgroundColor = color(200);
 
@@ -30,9 +38,11 @@ function setup() {
 function draw() {
 	background(backgroundColor);
 	
-	updateWind();
+	// updateWind();
 	applyWind();
 	drawFlowers();
+
+	// image(tulipImage, width/2, height/2);
 }
 
 function windowResized() {
@@ -51,12 +61,14 @@ function applyWind() {
 	flowers.forEach(function(flower) {
 		
 		flower.applyForce(
-			p5.Vector.mult(
-				windForce, 
-				randomGaussian(
-					1, // Median
-					0.4 // Standard deviation
-					)));
+			// p5.Vector.mult(
+				windForce
+				// , 
+				// randomGaussian(
+				// 	1, // Median
+				// 	0.4 // Standard deviation
+				// 	)));
+				);
 	});
 }
 
