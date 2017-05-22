@@ -52,6 +52,17 @@ class Flower {
 		} else {
 			this.tulipImage = tulipImage2;
 		}
+
+		// For optimization
+		this.endOffset = null;
+		this.rotationAngle = 0;
+
+		this.headScalar = 0.004;
+		this.widthScalar = 0.8;
+		this.scaledWidth = this.tulipImage.width * this.stem.length * (this.stem.width * this.widthScalar) * this.headScalar;
+		this.scaledHeight = this.tulipImage.height * this.stem.length * (this.stem.width * this.widthScalar) * this.headScalar;
+
+		this.standUpVector = createVector(0, -this.standupDesire);
 	}
 
 	run() {
@@ -71,12 +82,8 @@ class Flower {
 	}
 
 	updateRelativeHeadPos() {
-		let desiredHeadPos = p5.Vector.add(
-			this.getRelativeHeadPos(), 
-			this.vel);
-
-		desiredHeadPos.setMag(this.stem.length);
-		this.stem.relativeHeadPos = desiredHeadPos;
+		this.stem.relativeHeadPos.add(this.vel);
+		this.stem.relativeHeadPos.setMag(this.stem.length);
 	}
 
 	display() {
@@ -89,13 +96,13 @@ class Flower {
 	}
 
 	updateStem() {
-		let endOffset = createVector(
+		this.endOffset = createVector(
 			0, 
 			this.stem.length * 0.5
 			);
 		this.stem.endControl = p5.Vector.add(
 			this.stem.relativeHeadPos,
-			endOffset
+			this.endOffset
 			);
 
 		this.stem.startControl = createVector(
@@ -121,24 +128,18 @@ class Flower {
 	}
 
 	drawHead(headPos) {
-		let rotationAngle = Helper.calcClockwiseAngleBetween(this.up,  this.stem.endControl);
+		this.rotationAngle = Helper.calcClockwiseAngleBetween(this.up,  this.stem.endControl);
 		
-		let scalar = 0.004;
-		let widthScalar = 0.8;
-		let scaledWidth = this.tulipImage.width * this.stem.length * (this.stem.width * widthScalar) * scalar;
-		let scaledHeight = this.tulipImage.height * this.stem.length * (this.stem.width * widthScalar) * scalar;
-
 		push();
 		translate(headPos.x, headPos.y);
-		rotate(rotationAngle);
+		rotate(this.rotationAngle);
 		
 		imageMode(CENTER);
 		image(
 			this.tulipImage, 
-			0, -scaledHeight/2, 
-			scaledWidth, scaledHeight
+			0, -this.scaledHeight/2, 
+			this.scaledWidth, this.scaledHeight
 			);
-		
 		pop();
 	}
 
@@ -151,6 +152,6 @@ class Flower {
 	}
 
 	workTowardsStandingUpStraight() {
-		this.applyForce(createVector(0, -this.standupDesire));
+		this.applyForce(this.standUpVector);
 	}
 }	
