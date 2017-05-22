@@ -16,7 +16,7 @@ class Flower {
 			width: max(
 				randomGaussian(1, 0.5), 
 				this.minStemWidth),
-			color: color(50),
+			color: 50,
 			startControl: createVector(0, 0),
 			start: createVector(0, 0),
 			init: function() {
