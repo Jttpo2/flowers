@@ -1,7 +1,7 @@
 {
   "name": "flowers",
   "version": "0.4.0",
-  "description": "Making flowers sway in the wind. By John Petersson",
+  "description": "Making flowers sway in the wind, using p5.js. By John Petersson",
   "main": "index.html",
   "scripts": {},
   "repository": {
