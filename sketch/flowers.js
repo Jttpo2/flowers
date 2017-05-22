@@ -5,7 +5,7 @@ let backgroundColor;
 let flowers = [];
 let numberOfFlowers = 100;
 
-let maxWindForce = 10;
+let maxWindForce = 20;
 let windForce = createVector(10, 0);
 
 let xOff = 0;
@@ -63,7 +63,7 @@ function applyWind() {
 				windForce, 
 				randomGaussian(
 					1, // Median
-					0.3 * windForce.x // Standard deviation, larger with more wind force - more 'shakes'
+					0.19 * windForce.x // Standard deviation, larger with more wind force - more 'shakes'
 					)));
 	});
 }
@@ -76,4 +76,5 @@ function updateWind() {
 	xOff += xIncrement;
 	// windForce.x = noise(xOff) * maxWindForce;
 	windForce.x = map(noise(xOff), 0, 1,  -maxWindForce, maxWindForce);
+	// windForce.x = 10;
 }
