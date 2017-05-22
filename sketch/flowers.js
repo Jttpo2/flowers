@@ -11,10 +11,12 @@ let windForce = createVector(10, 0);
 let xOff = 0;
 let xIncrement = 1;
 
-let tulipImage;
+let tulipImage1;
+let tulipImage2;
 
 function preload() {
-	tulipImage = loadImage('img/tulip1.png');
+	tulipImage1 = loadImage('img/tulip1.2.png');
+	tulipImage2 = loadImage('img/tulip2.2.png');
 }
 
 function setup() {

@@ -46,6 +46,13 @@ class Flower {
 		this.noOfPetals = 6;
 		this.petalSize = this.stem.length * 0.1;
 		this.petalToCenterDistance = this.petalSize;
+
+		this.type = Math.floor(random() * 2);
+		if (this.type === 0) {
+			this.tulipImage = tulipImage1;
+		} else {
+			this.tulipImage = tulipImage2;
+		}
 	}
 
 	run() {
@@ -54,22 +61,23 @@ class Flower {
 	}
 
 	update() {
-
 		this.workTowardsStandingUpStraight();
-
+		
 		this.vel.add(this.acc);
 		this.vel.limit(this.maxVel);
+		this.acc.mult(0);
 
+		this.updateRelativeHeadPos();
+		this.updateStem();
+	}
+
+	updateRelativeHeadPos() {
 		let desiredHeadPos = p5.Vector.add(
 			this.getRelativeHeadPos(), 
 			this.vel);
 
 		desiredHeadPos.setMag(this.stem.length);
 		this.stem.relativeHeadPos = desiredHeadPos;
-
-		this.acc.mult(0);
-
-		this.updateStem();
 	}
 
 	display() {
@@ -82,13 +90,14 @@ class Flower {
 	}
 
 	updateStem() {
-		this.stem.endControl =  this.getRelativeHeadPos().copy();
-
 		let endOffset = createVector(
 			0, 
 			this.stem.length * 0.5
 			);
-		this.stem.endControl.add(endOffset);
+		this.stem.endControl = p5.Vector.add(
+			this.stem.relativeHeadPos,
+			endOffset
+			);
 
 		this.stem.startControl = createVector(
 			0, 
@@ -116,15 +125,20 @@ class Flower {
 		// let rotationAngle = p5.Vector.angleBetween(this.up, headPos);
 		let rotationAngle = p5.Vector.angleBetween(this.up, this.stem.endControl);
 		
-		let scaledWidth = tulipImage.width/10;
-		let scaledHeight = tulipImage.height/10;
+		let scalar = 0.004;
+		let scaledWidth = this.tulipImage.width * this.stem.length * this.stem.width * scalar;
+		let scaledHeight = this.tulipImage.height * this.stem.length * this.stem.width * scalar;
 
 		push();
 		translate(headPos.x, headPos.y);
 		rotate(rotationAngle);
 		
 		imageMode(CENTER);
-		image(tulipImage, 0, -scaledHeight/2, scaledWidth, scaledHeight);
+		image(
+			this.tulipImage, 
+			0, -scaledHeight/2, 
+			scaledWidth, scaledHeight
+			);
 		
 		pop();
 		// this.drawPetals(headPos);
