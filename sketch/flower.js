@@ -4,7 +4,7 @@ class Flower {
 			Math.random() * width, 
 			height);
 
-		this.averageHeight = 70;
+		this.averageHeight = 120;
 		this.heightStandardDev = 20;
 		this.minStemWidth = 0.2;
 
@@ -30,7 +30,6 @@ class Flower {
 			set relativeHeadPos(pos) {
 				this.end = pos;
 			}
-			
 		}.init();
 	
 		this.mass = this.stem.length * this.stem.width * 0.1;
@@ -38,7 +37,7 @@ class Flower {
 		this.acc = createVector(0, 0);
 		this.maxVel = 5;
 
-		this.standupDesire = 1000 * this.stem.width * (1/this.stem.length);
+		this.standupDesire = 3500 * this.stem.width * (1/this.stem.length);
 		this.up = createVector(0, -1);
 
 		this.centerColor = color(230);
@@ -122,13 +121,12 @@ class Flower {
 	}
 
 	drawHead(headPos) {
-		// let rotationAngle = p5.Vector.angleBetween(this.up, headPos);
 		let rotationAngle = Helper.calcClockwiseAngleBetween(this.up,  this.stem.endControl);
-		// let rotationAngle = p5.Vector.angleBetween(this.up, this.stem.endControl);
 		
 		let scalar = 0.004;
-		let scaledWidth = this.tulipImage.width * this.stem.length * this.stem.width * scalar;
-		let scaledHeight = this.tulipImage.height * this.stem.length * this.stem.width * scalar;
+		let widthScalar = 0.8;
+		let scaledWidth = this.tulipImage.width * this.stem.length * (this.stem.width * widthScalar) * scalar;
+		let scaledHeight = this.tulipImage.height * this.stem.length * (this.stem.width * widthScalar) * scalar;
 
 		push();
 		translate(headPos.x, headPos.y);
@@ -142,33 +140,7 @@ class Flower {
 			);
 		
 		pop();
-		// this.drawPetals(headPos);
-		// this.drawCenter(headPos);
 	}
-
-	// drawPetals(headPos) {
-	// 	push();
-	// 	translate(headPos.x, headPos.y);
-	// 	let rotationAngle = p5.Vector.angleBetween(this.up, headPos);
-	// 	rotate(rotationAngle);
-
-	// 	for (let i=0; i<this.noOfPetals; i++) {
-	// 		push();
-	// 		rotate(TWO_PI * i / this.noOfPetals);
-	// 		this.drawPetal(this.petalToCenterDistance, 0);
-
-	// 		pop();
-	// 	}
-	// 	pop();
- // 	}
-
-	// drawPetal(x, y) {
-	// 	ellipseMode(CENTER);
-	// 	stroke(this.color);
-	// 	fill(this.color);
-	// 	strokeWeight(this.stem.width);
-	// 	ellipse(x, y, this.petalSize);
-	// }
 
 	getRelativeHeadPos() {
 		return this.stem.relativeHeadPos;	
@@ -181,15 +153,4 @@ class Flower {
 	workTowardsStandingUpStraight() {
 		this.applyForce(createVector(0, -this.standupDesire));
 	}
-
-	// drawCenter(pos) {
-	// 	ellipseMode(CENTER);
-	// 	noStroke();
-	// 	fill(this.centerColor);
-		
-	// 	push();
-	// 	translate(pos.x, pos.y);
-	// 	ellipse(0, 0, this.petalSize*0.8);
-	// 	pop();
-	// }
 }	

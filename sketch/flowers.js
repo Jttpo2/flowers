@@ -3,7 +3,7 @@ new p5();
 let backgroundColor;
 
 let flowers = [];
-let numberOfFlowers = 100;
+let numberOfFlowers = 50;
 
 let maxWindForce = 20;
 let windForce = createVector(10, 0);
@@ -36,6 +36,7 @@ function setup() {
 }
 
 function draw() {
+	rotateOnNarrowScreens();
 	background(backgroundColor);
 	
 	updateWind();
@@ -44,6 +45,7 @@ function draw() {
 }
 
 function windowResized() {
+	reset();
 	resizeCanvas(
 		window.innerWidth,
 		window.innerHeight);
@@ -63,7 +65,7 @@ function applyWind() {
 				windForce, 
 				randomGaussian(
 					1, // Median
-					0.19 * windForce.x // Standard deviation, larger with more wind force - more 'shakes'
+					0.18 * windForce.x // Standard deviation, larger with more wind force - more 'shakes'
 					)));
 	});
 }
@@ -74,7 +76,20 @@ function initWind() {
 
 function updateWind() {
 	xOff += xIncrement;
-	// windForce.x = noise(xOff) * maxWindForce;
 	windForce.x = map(noise(xOff), 0, 1,  -maxWindForce, maxWindForce);
-	// windForce.x = 10;
+}
+
+function rotateOnNarrowScreens() {
+	if (height > width) {
+		rotate(-HALF_PI);
+		translate(-(height+width)/2, width-height);
+	}
+}
+
+function reset() {
+	flowers = [];
+	for (let i=0; i<numberOfFlowers; i++) {
+		let flower = new Flower();
+		flowers.push(flower); 
+	}
 }
