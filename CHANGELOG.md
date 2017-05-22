@@ -7,7 +7,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ## [Unreleased]
 ### Added
 - Basic flower representation.
+- Flowers wavering from wind force.
+- Rotating on narrow screen. 
+- Reset on screen size change.
+- Wind in both directions. 
+- More shaky movement the higher the wind strength.
+- Two flower looks for variation.
+- Stalks bend.
+- Perlin noise wind, individual flower force with gaussian distribution.
 
+### Changed
+- Stiffer stalks.
+- Stalk length less influential on head size
+- Image as flower head instead of shape.
 
 ## [0.3.0] - 2017-05-10
 ### Added
