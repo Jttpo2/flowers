@@ -4,8 +4,8 @@ class Flower {
 			Math.random() * width, 
 			height);
 
-		this.averageHeight = 120;
-		this.heightStandardDev = 20;
+		this.averageHeight = 90;
+		this.heightStandardDev = 30;
 		this.minStemWidth = 0.2;
 
 		this.stem = {
