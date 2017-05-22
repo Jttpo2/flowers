@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
+
+## [0.4.0] - 2017-05-22
 ### Added
 - Basic flower representation.
 - Flowers wavering from wind force.

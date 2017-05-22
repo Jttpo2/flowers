@@ -1,6 +1,6 @@
 {
   "name": "flowers",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Making flowers sway in the wind. By John Petersson",
   "main": "index.html",
   "scripts": {},
