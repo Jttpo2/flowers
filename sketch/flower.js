@@ -154,4 +154,8 @@ class Flower {
 	workTowardsStandingUpStraight() {
 		this.applyForce(this.standUpVector);
 	}
+
+	get headPos() {
+		return p5.Vector.add(this.basePos, this.getRelativeHeadPos());
+	}
 }	

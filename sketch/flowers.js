@@ -14,6 +14,8 @@ let xIncrement = 0.001;
 let tulipImage1;
 let tulipImage2;
 
+let flowField;
+
 function preload() {
 	tulipImage1 = loadImage('img/tulip1.2.png');
 	tulipImage2 = loadImage('img/tulip2.2.png');
@@ -33,6 +35,8 @@ function setup() {
 	}
 
 	initWind();
+
+	flowField = new FlowField(width, height, 30, maxWindForce);
 }
 
 function draw() {
@@ -42,6 +46,9 @@ function draw() {
 	updateWind();
 	applyWind();
 	drawFlowers();
+
+	flowField.update();
+	flowField.display();
 }
 
 function windowResized() {
@@ -62,12 +69,25 @@ function applyWind() {
 		
 		flower.applyForce(
 			p5.Vector.mult(
-				windForce, 
-				randomGaussian(
-					1, // Median
-					0.18 * windForce.x // Standard deviation, larger with more wind force - more 'shakes'
-					)));
+				flowField.lookup(
+					flower.headPos), 
+				getWindFlicker(
+					windForce
+					)
+				)
+			);
 	});
+}
+
+function getWindFlicker(windForce) {
+	return randomGaussian(
+					1, // Median
+					0.08 * windForce.x // Standard deviation, larger with more wind force - more 'shakes'
+					);
+}
+
+function getGaussianWind() {
+	
 }
 
 function initWind() {

@@ -20,6 +20,7 @@ gulp.task('reload', function() {
 var sketchFolder = "sketch/";
 var sketchFiles = [
 'helper.js',
+'flowfield.js',
 'flowers.js', 
 'flower.js'
 ];
