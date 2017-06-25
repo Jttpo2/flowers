@@ -1,4 +1,4 @@
-class Flower {
+class Flower { 
 	constructor() {
 		this.basePos = createVector(
 			Math.random() * width, 
