@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.5.0] - 2017-06-25
+### Added
+- Wind is a vector flow field.
+
 ## [0.4.0] - 2017-05-22
 ### Added
 - Basic flower representation.
