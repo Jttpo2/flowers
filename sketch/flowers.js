@@ -48,7 +48,7 @@ function draw() {
 	drawFlowers();
 
 	flowField.update();
-	flowField.display();
+	// flowField.display();
 }
 
 function windowResized() {
@@ -66,13 +66,12 @@ function drawFlowers() {
 
 function applyWind() {
 	flowers.forEach(function(flower) {
-		
+		let flowFieldWindForce = flowField.lookup(flower.headPos);
 		flower.applyForce(
 			p5.Vector.mult(
-				flowField.lookup(
-					flower.headPos), 
+				flowFieldWindForce, 
 				getWindFlicker(
-					windForce
+					flowFieldWindForce
 					)
 				)
 			);
@@ -82,7 +81,7 @@ function applyWind() {
 function getWindFlicker(windForce) {
 	return randomGaussian(
 					1, // Median
-					0.08 * windForce.x // Standard deviation, larger with more wind force - more 'shakes'
+					0.3 * windForce.x // Standard deviation, larger with more wind force - more 'shakes'
 					);
 }
 

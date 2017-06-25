@@ -28,13 +28,13 @@ class FlowField {
 
 	initNoise() {
 		let octaves = 4;
-		let falloff = 0.7;
+		let falloff = 0.5;
 		noiseDetail(octaves, falloff);
 
 		this.xOff = 0;
-		this.xIncrement = 0.01;
+		this.xIncrement = 0.005;
 		this.yOff = 0;
-		this.yIncrement = 0.01;
+		this.yIncrement = 0.005;
 		this.timeOff = 0;
 		this.timeIncrement = 0.005;
 
@@ -56,8 +56,8 @@ class FlowField {
 			}
 			this.xOff += this.xIncrement;
 		}
-
 		this.timeOff += this.timeIncrement;
+
 	}
 
 	display() {
